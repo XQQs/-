@@ -81,6 +81,7 @@
     </div>
 
     <script>
+        // 照片上传功能
         document.getElementById("photoUpload").addEventListener("change", function(event) {
             var reader = new FileReader();
             reader.onload = function(){
@@ -90,6 +91,7 @@
             reader.readAsDataURL(event.target.files[0]);
         });
 
+        // 保存留言并存入 LocalStorage
         function saveMessage() {
             var message = document.getElementById("message").value;
             if (message.trim() !== "") {
@@ -97,8 +99,25 @@
                 var newMessage = document.createElement("p");
                 newMessage.textContent = "💌 " + message;
                 messageDisplay.appendChild(newMessage);
+
+                // 保存到 LocalStorage
+                var messages = JSON.parse(localStorage.getItem("friendshipMessages")) || [];
+                messages.push(message);
+                localStorage.setItem("friendshipMessages", JSON.stringify(messages));
+
                 document.getElementById("message").value = ""; 
             }
+        }
+
+        // 页面加载时显示保存的留言
+        function loadMessages() {
+            var messages = JSON.parse(localStorage.getItem("friendshipMessages")) || [];
+            var messageDisplay = document.getElementById("messageDisplay");
+            messages.forEach(function(msg) {
+                var newMessage = document.createElement("p");
+                newMessage.textContent = "💌 " + msg;
+                messageDisplay.appendChild(newMessage);
+            });
         }
 
         // 友谊纪念日倒计时
@@ -119,7 +138,11 @@
             document.getElementById("nextAnniversary").textContent = daysToNext;
         }
 
-        calculateAnniversary();
+        // 页面加载时执行
+        window.onload = function() {
+            calculateAnniversary();  // 计算友谊天数
+            loadMessages();  // 载入留言
+        };
     </script>
 
 </body>
