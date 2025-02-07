@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的情侣网站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFE4E1;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        h1 {
+            color: #FF69B4;
+        }
+        .photo-upload, .message-board, .anniversary {
+            margin-top: 20px;
+        }
+        input[type="file"], .message-box {
+            margin-top: 10px;
+        }
+        .submit-btn {
+            background-color: #FF69B4;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .submit-btn:hover {
+            background-color: #FF1493;
+        }
+        #music {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>💕 亲爱的，我们的专属网站 💕</h1>
+
+        <h2>🎉 纪念日倒计时</h2>
+        <div class="anniversary">
+            <p>我们已经在一起了：<span id="daysTogether"></span> 天</p>
+            <p>下一个纪念日还有：<span id="nextAnniversary"></span> 天</p>
+        </div>
+
+        <h2>📸 记录我们的甜蜜瞬间</h2>
+        <div class="photo-upload">
+            <input type="file" id="photoUpload" accept="image/*">
+            <br>
+            <img id="uploadedPhoto" style="max-width: 100%; margin-top: 10px;">
+        </div>
+
+        <h2>💌 说点悄悄话</h2>
+        <div class="message-board">
+            <textarea id="message" class="message-box" placeholder="写下你的心里话..."></textarea>
+            <br>
+            <button class="submit-btn" onclick="saveMessage()">发送</button>
+        </div>
+        <div id="messageDisplay"></div>
+
+        <h2>🎶 播放我们的专属BGM</h2>
+        <audio id="music" controls>
+            <source src="your-music.mp3" type="audio/mpeg">
+            你的浏览器不支持音频播放。
+        </audio>
+    </div>
+
+    <script>
+        document.getElementById("photoUpload").addEventListener("change", function(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var img = document.getElementById("uploadedPhoto");
+                img.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        });
+
+        function saveMessage() {
+            var message = document.getElementById("message").value;
+            if (message.trim() !== "") {
+                var messageDisplay = document.getElementById("messageDisplay");
+                var newMessage = document.createElement("p");
+                newMessage.textContent = "💌 " + message;
+                messageDisplay.appendChild(newMessage);
+                document.getElementById("message").value = ""; 
+            }
+        }
+
+        // 纪念日倒计时
+        function calculateAnniversary() {
+            var startDate = new Date("2023-06-01");  // 你们的交往日期，修改成你们的实际日期
+            var today = new Date();
+            var timeDiff = today - startDate;
+            var daysTogether = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            document.getElementById("daysTogether").textContent = daysTogether;
+
+            // 计算下一个周年纪念日
+            var nextAnniversary = new Date(startDate);
+            nextAnniversary.setFullYear(today.getFullYear());
+            if (nextAnniversary < today) {
+                nextAnniversary.setFullYear(today.getFullYear() + 1);
+            }
+            var daysToNext = Math.ceil((nextAnniversary - today) / (1000 * 60 * 60 * 24));
+            document.getElementById("nextAnniversary").textContent = daysToNext;
+        }
+
+        calculateAnniversary();
+    </script>
+
+</body>
+</html>
