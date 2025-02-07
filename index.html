@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我们的情侣网站</title>
+    <title>晴晴和菲菲的友谊纪念馆</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,24 +50,24 @@
 <body>
 
     <div class="container">
-        <h1>💕 亲爱的，我们的专属网站 💕</h1>
+        <h1>💕 晴晴和菲菲的友谊纪念馆 💕</h1>
 
-        <h2>🎉 纪念日倒计时</h2>
+        <h2>🎉 友谊天数计算</h2>
         <div class="anniversary">
-            <p>我们已经在一起了：<span id="daysTogether"></span> 天</p>
-            <p>下一个纪念日还有：<span id="nextAnniversary"></span> 天</p>
+            <p>我们已经认识了：<span id="daysTogether"></span> 天</p>
+            <p>下一个友谊纪念日还有：<span id="nextAnniversary"></span> 天</p>
         </div>
 
-        <h2>📸 记录我们的甜蜜瞬间</h2>
+        <h2>📸 记录我们的美好回忆</h2>
         <div class="photo-upload">
             <input type="file" id="photoUpload" accept="image/*">
             <br>
             <img id="uploadedPhoto" style="max-width: 100%; margin-top: 10px;">
         </div>
 
-        <h2>💌 说点悄悄话</h2>
+        <h2>💌 留言墙</h2>
         <div class="message-board">
-            <textarea id="message" class="message-box" placeholder="写下你的心里话..."></textarea>
+            <textarea id="message" class="message-box" placeholder="给对方写点想说的话吧..."></textarea>
             <br>
             <button class="submit-btn" onclick="saveMessage()">发送</button>
         </div>
@@ -101,9 +101,9 @@
             }
         }
 
-        // 纪念日倒计时
+        // 友谊纪念日倒计时
         function calculateAnniversary() {
-            var startDate = new Date("2023-06-01");  // 你们的交往日期，修改成你们的实际日期
+            var startDate = new Date("2021-09-23");  // 你们认识的日期
             var today = new Date();
             var timeDiff = today - startDate;
             var daysTogether = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
